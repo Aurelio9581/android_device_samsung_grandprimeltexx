@@ -73,7 +73,14 @@ TARGET_HW_DISK_ENCRYPTION := true
 
 # default.prop
 ADDITIONAL_DEFAULT_PROPERTIES += \
+	telephony.lteOnCdmaDevice=0 \
+	persist.radio.apm_sim_not_pwdn=1 \
+	persist.radio.add_power_save=1 \
+	persist.data.netmgrd.qos.enable=false \
+	persist.cne.feature=0 \
+	persist.radio.lte_vrte_ltd=1 \
 	camera2.portability.force_api=1
+#	persist.security.ams.enforcing=1
 
 # Dex
 ifeq ($(HOST_OS),linux)
@@ -122,10 +129,8 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
-TARGET_KERNEL_CONFIG := msm8916_sec_defconfig
-TARGET_KERNEL_VARIANT_CONFIG := msm8916_sec_fortuna_eur_defconfig
-TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
-TARGET_KERNEL_SOURCE := kernel/samsung/fortuna
+TARGET_KERNEL_CONFIG := cyanogen_grandprimeltexx_defconfig
+TARGET_KERNEL_SOURCE := kernel/samsung/msm8916
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -167,31 +172,31 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/samsung/fortuna/ril/
+BOARD_RIL_CLASS := ../../../device/samsung/grandprimeltexx/ril/
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/fortuna/sepolicy
+#BOARD_SEPOLICY_DIRS += \
+#    device/samsung/grandprimeltexx/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    bluetooth_loader.te \
-    file_contexts \
-    mediaserver.te \
-    property_contexts \
-    system_app.te \
-    time_daemon.te \
-    vold.te \
-    bluetooth.te \
-    file.te \
-    kernel.te \
-    mm-qcamerad.te \
-    property.te \
-    rild.te \
-    system_server.te \
-    ueventd.te \
-    wcnss_service.te
+#BOARD_SEPOLICY_UNION += \
+#    bluetooth_loader.te \
+#    file_contexts \
+#    mediaserver.te \
+#    property_contexts \
+#    system_app.te \
+#    time_daemon.te \
+#    vold.te \
+#    bluetooth.te \
+#    file.te \
+#    kernel.te \
+#    mm-qcamerad.te \
+#    property.te \
+#    rild.te \
+#    system_server.te \
+#    ueventd.te \
+#    wcnss_service.te
 
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true

@@ -24,8 +24,6 @@ PRODUCT_LOCALES += pl_PL
 #Android EGL implementation
 PRODUCT_PACKAGES += libGLES_android
 
-PRODUCT_PACKAGES += libtime_genoff
-
 # ANT+
 PRODUCT_PACKAGES += \
 	AntHalService \
@@ -53,7 +51,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/audio/Hdmi_cal.acdb:system/etc/Hdmi_cal.acdb \
 	$(LOCAL_PATH)/audio/Headset_cal.acdb:system/etc/Headset_cal.acdb \
 	$(LOCAL_PATH)/audio/Speaker_cal.acdb:system/etc/Speaker_cal.acdb \
-	$(LOCAL_PATH)/audio/audio_effects.conf:system/etc/audio_effects.conf \
+	$(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
 	$(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
 	$(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
 
@@ -132,7 +130,8 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/keylayouts/ft5x06_ts.kl:system/usr/keylayout/ft5x06_ts.kl \
 	$(LOCAL_PATH)/keylayouts/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
 	$(LOCAL_PATH)/keylayouts/synaptics_dsx.kl:system/usr/keylayout/synaptics_dsx.kl \
-	$(LOCAL_PATH)/keylayouts/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl
+	$(LOCAL_PATH)/keylayouts/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl \
+	$(LOCAL_PATH)/keylayouts/Synaptics_HID_TouchPad.idc:system/usr/idc/Synaptics_HID_TouchPad.idc
 
 # Keystore
 PRODUCT_PACKAGES += \
@@ -264,6 +263,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	debug.mdpcomp.logs=0 \
 	persist.hwc.mdpcomp.enable=true \
 	ro.telephony.call_ring.multiple=0
+#persist.sys.usb.config=mtp
 
 # Samsung Doze
 PRODUCT_PACKAGES += \
