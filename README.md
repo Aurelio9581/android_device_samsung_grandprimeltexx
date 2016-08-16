@@ -17,6 +17,12 @@ Display | 540 x 960 (qHD), 5.0" (126.4mm)
 Rear Camera  | 8.0 MP, LED flash
 Front Camera | 5.0 MP
 
+## Build TWRP recovery
+    . build/envsetup.sh
+    TW=y lunch cm_grandprimeltexx-eng
+    TW=y make -j4 recoveryimage
+
+## Other informations
 
 Check the [`local_manifests`](./local_manifests) and [`patch`](./patch) directory
 

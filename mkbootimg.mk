@@ -23,6 +23,7 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) $(INSTAL
 	@echo -e ${CL_CYN}"Made boot image: $@"${CL_RST}
 
 ## Overload recoveryimg generation: Same as the original, + --dt arg
+ifneq ($(RECOVERY_VARIANT),twrp)
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(INSTALLED_DTIMAGE_TARGET) \
 		$(recovery_ramdisk) \
 		$(recovery_kernel)
@@ -30,3 +31,19 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(INSTALLED_DTIMAGE_TARGET) \
 	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --dt $(INSTALLED_DTIMAGE_TARGET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) --output $@
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE),raw)
 	@echo -e ${CL_CYN}"Made recovery image: $@"${CL_RST}
+else
+TWRP_VERSION := $(shell cat bootable/recovery-twrp/variables.h | grep TW_VERSION_STR | cut -d\" -f2)
+TWRP_NAME := recovery-TWRP-$(TWRP_VERSION)-grandprimeltexx-$(shell date +%Y-%m-%d-%H.%M.%S)
+$(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(INSTALLED_DTIMAGE_TARGET) \
+		$(recovery_ramdisk) \
+		$(recovery_kernel)
+	@echo -e ${CL_CYN}"----- Making recovery image ------"${CL_RST}
+	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --dt $(INSTALLED_DTIMAGE_TARGET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) --output $@
+	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE),raw)
+	@echo -e ${CL_CYN}"Made recovery image: $@"${CL_RST}
+	@echo -e ${CL_CYN}"----- Making odin recovery image ------"${CL_RST}
+	cd $(PRODUCT_OUT) && tar -H ustar -c $(shell basename $@) > $(TWRP_NAME).tar
+	cd $(PRODUCT_OUT) && md5sum -t $(TWRP_NAME).tar >> $(TWRP_NAME).tar
+	mv $(PRODUCT_OUT)/$(TWRP_NAME).tar $(PRODUCT_OUT)/$(TWRP_NAME).tar.md5
+	@echo -e ${CL_CYN}"Made odin recovery image: $(PRODUCT_OUT)/$(TWRP_NAME).tar.md5"${CL_RST}
+endif
