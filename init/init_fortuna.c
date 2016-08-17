@@ -56,8 +56,8 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
 
     if (strstr(bootloader, "G530FZ")) {
         /* SM-G530FZ */
-        property_set("ro.build.fingerprint", "samsung/grandprimeltexx/grandprimelte:5.0.2/LRX22G/G530FZXXU1BOI2:user/release-keys");
-        property_set("ro.build.description", "grandprimeltexx-user 5.0.2 LRX22G G530FZXXU1BOI2 release-keys");
+        property_set("ro.build.fingerprint", "samsung/grandprimeltexx/grandprimelte:5.0.2/LRX22G/G530FZXXU1BPF1:user/release-keys");
+        property_set("ro.build.description", "grandprimeltexx-user 5.0.2 LRX22G G530FZXXU1BPF1 release-keys");
         property_set("ro.product.model", "SM-G530FZ");
         property_set("ro.product.device", "grandprimelte");
         property_set("ro.product.name", "grandprimeltexx");
@@ -66,7 +66,7 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("persist.radio.apm_sim_not_pwdn", "1");
         property_set("persist.radio.add_power_save", "1");
         property_set("persist.data.netmgrd.qos.enable", "false");
-        property_set("persist.cne.feature", "0");
+        property_set("persist.cne.feature", "1");
         property_set("persist.radio.lte_vrte_ltd", "1");
     } else if (strstr(bootloader, "G530H")) {
         /* SM-G530H */
